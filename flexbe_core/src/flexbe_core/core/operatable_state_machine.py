@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import zlib
+import traceback
 from flexbe_core.core.user_data import UserData
 from flexbe_core.logger import Logger
 from flexbe_core.state_logger import StateLogger
@@ -98,6 +99,7 @@ class OperatableStateMachine(PreemptableStateMachine):
             outcome = None
             self._last_exception = e
             Logger.logerr('Failed to execute state %s:\n%s' % (self.current_state_label, str(e)))
+            traceback.print_stack()
         # provide explicit sync as back-up functionality
         # should be used only if there is no other choice
         # since it requires additional 8 byte + header update bandwith and time to restart mirror
